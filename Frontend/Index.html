@@ -78,12 +78,25 @@
       const data = await res.json();
       statusText.textContent = data.message;
       statusText.className = data.success ? 'text-green-600 text-center mt-4' : 'text-red-600 text-center mt-4';
+      loginEmail.value = '';
+      loginPassword.value = '';
+
+
+      if (data.success) {
+    localStorage.setItem("email", email);
+    
+    // ✅ Redirect to Upload.html
+    setTimeout(() => {
+      window.location.href = "Upload.html";
+    }, 1000); // Wait 1 second to show success message
+  }
     });
 
     registerForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('registerEmail').value;
       const password = document.getElementById('registerPassword').value;
+      
 
       const res = await fetch('http://localhost:3000/register', {
         method: 'POST',
@@ -94,6 +107,7 @@
       const data = await res.json();
       statusText.textContent = data.message;
       statusText.className = data.success ? 'text-green-600 text-center mt-4' : 'text-red-600 text-center mt-4';
+
     });
   </script>
 </body>
